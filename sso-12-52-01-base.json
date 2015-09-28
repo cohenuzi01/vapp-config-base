@@ -1,0 +1,529 @@
+{
+  "apiVersion": "v1",
+  "kind": "Template",
+  "metadata": {
+    "annotations": {
+      "description": "CA Single Sign-On 12.52.01.latest"
+    },
+    "creationTimestamp": null,
+    "name": "sso-12-52-01-base",
+    "namespace": "sso-12-52-01-base"
+  },
+  "objects": [
+    {
+      "apiVersion": "v1",
+      "kind": "ReplicationController",
+      "metadata": {
+        "name": "access-gateway"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "ca.com/sso": "access-gateway"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "ca.com/sso": "access-gateway"
+            },
+            "name": "access-gateway"
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "DESTINATION",
+                    "value": "/solution"
+                  },
+                  {
+                    "name": "SOURCE",
+                    "value": "https://github.com/ca-sso/vapp-config-base/archive/master.zip"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
+                "name": "configuration",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              },
+              {
+                "env": [
+                  {
+                    "name": "CONFIG",
+                    "value": "base/access-gateway"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/ssignon/access-gateway:latest",
+                "name": "access-gateway",
+                "ports": [
+                  {
+                    "containerPort": 80
+                  },
+                  {
+                    "containerPort": 443
+                  },
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "volumes": [
+              {
+                "name": "configuration",
+                "emptyDir": {}
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ReplicationController",
+      "metadata": {
+        "name": "admin-ui"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "ca.com/sso": "admin-ui"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "ca.com/sso": "admin-ui"
+            },
+            "name": "admin-ui"
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "DESTINATION",
+                    "value": "/solution"
+                  },
+                  {
+                    "name": "SOURCE",
+                    "value": "https://github.com/ca-sso/vapp-config-base/archive/master.zip"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
+                "name": "configuration",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              },
+              {
+                "env": [
+                  {
+                    "name": "CONFIG",
+                    "value": "base/admin-ui"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/ssignon/admin-ui:latest",
+                "name": "admin-ui",
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "volumes": [
+              {
+                "name": "configuration",
+                "emptyDir": {}
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ReplicationController",
+      "metadata": {
+        "name": "policy-server"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "ca.com/sso": "policy-server"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "ca.com/sso": "policy-server"
+            },
+            "name": "policy-server"
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "DESTINATION",
+                    "value": "/solution"
+                  },
+                  {
+                    "name": "SOURCE",
+                    "value": "https://github.com/ca-sso/vapp-config-base/archive/master.zip"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
+                "name": "configuration",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              },
+              {
+                "env": [
+                  {
+                    "name": "CONFIG",
+                    "value": "base/policy-server"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/ssignon/policy-server:latest",
+                "name": "policy-server",
+                "ports": [
+                  {
+                    "containerPort": 44441
+                  },
+                  {
+                    "containerPort": 44442
+                  },
+                  {
+                    "containerPort": 44443
+                  }
+                ],
+                "readinessProbe": {
+                  "tcpSocket": {
+                    "port": 44443
+                  },
+                  "initialDelaySeconds": 20
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "volumes": [
+              {
+                "name": "configuration",
+                "emptyDir": {}
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ReplicationController",
+      "metadata": {
+        "name": "policy-store"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "ca.com/sso": "policy-store"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "ca.com/sso": "policy-store"
+            },
+            "name": "policy-store"
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "DESTINATION",
+                    "value": "/solution"
+                  },
+                  {
+                    "name": "SOURCE",
+                    "value": "https://github.com/ca-sso/vapp-config-base/archive/master.zip"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
+                "name": "configuration",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              },
+              {
+                "env": [
+                  {
+                    "name": "CONFIG",
+                    "value": "base/policy-store"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/directory/dxgrid:latest",
+                "name": "policy-store",
+                "ports": [
+                  {
+                    "containerPort": 10389
+                  }
+                ],
+                "readinessProbe": {
+                  "tcpSocket": {
+                    "port": 10389
+                  },
+                  "initialDelaySeconds": 20
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "volumes": [
+              {
+                "name": "configuration",
+                "emptyDir": {}
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "description": "Public service of the Access Gateway"
+        },
+        "name": "access-gateway"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "nodePort": 30080,
+            "port": 80,
+            "targetPort": 80
+          },
+          {
+            "name": "https",
+            "nodePort": 30443,
+            "port": 443,
+            "targetPort": 443
+          }
+        ],
+        "selector": {
+          "ca.com/sso": "access-gateway"
+        },
+        "type": "NodePort"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "ca.com/cluster-public-hostname": "access-gateway-admin.ca.local",
+          "ca.com/cluster-public-hostname-backend": "access-gateway-admin.ca.local",
+          "ca.com/cluster-public-url": "/proxyui",
+          "ca.com/cluster-public-urlpath": "/proxyui/",
+          "ca.com/cluster-public-urlpath-backend": "/proxyui/",
+          "ca.com/cluster-public-urltext": "Access Gateway Admin",
+          "description": "Public service of the Access Gateway UI"
+        },
+        "labels": {
+          "ca.com/cluster-public-service": "http"
+        },
+        "name": "access-gateway-ui"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "ui",
+            "port": 80,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "ca.com/sso": "access-gateway"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "ca.com/cluster-public-hostname": "sso-admin.ca.local",
+          "ca.com/cluster-public-hostname-backend": "admin-ui",
+          "ca.com/cluster-public-url": "/iam/siteminder/adminui",
+          "ca.com/cluster-public-urlpath": "/iam/siteminder/",
+          "ca.com/cluster-public-urlpath-backend": "/iam/siteminder/",
+          "ca.com/cluster-public-urltext": "Single Sign-On Admin",
+          "description": "Public service of the Administrative UI"
+        },
+        "labels": {
+          "ca.com/cluster-public-service": "http"
+        },
+        "name": "admin-ui"
+      },
+      "spec": {
+        "ports": [
+          {
+            "port": 80,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "ca.com/sso": "admin-ui"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "ca.com/cluster-public-hostname-backend": "admin-ui",
+          "ca.com/cluster-public-urlpath": "/castylesr5.1.1/",
+          "ca.com/cluster-public-urlpath-backend": "/castylesr5.1.1/"
+        },
+        "labels": {
+          "ca.com/cluster-public-service": "http"
+        },
+        "name": "castyle-5-1-1"
+      },
+      "spec": {
+        "ports": [
+          {
+            "port": 80,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "ca.com/sso": "admin-ui"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "ca.com/cluster-public-hostname-backend": "access-gateway-admin.ca.local",
+          "ca.com/cluster-public-urlpath": "/castylesr5.1.3/",
+          "ca.com/cluster-public-urlpath-backend": "/castylesr5.1.3/"
+        },
+        "labels": {
+          "ca.com/cluster-public-service": "http"
+        },
+        "name": "castyle-5-1-3"
+      },
+      "spec": {
+        "ports": [
+          {
+            "port": 80,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "ca.com/sso": "access-gateway"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "labels": {
+          "ca.com/cluster-public-service": "tcp"
+        },
+        "name": "policy-server"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "accnt",
+            "port": 44441,
+            "targetPort": 44441
+          },
+          {
+            "name": "authn",
+            "port": 44442,
+            "targetPort": 44442
+          },
+          {
+            "name": "az",
+            "port": 44443,
+            "targetPort": 44443
+          }
+        ],
+        "selector": {
+          "ca.com/sso": "policy-server"
+        }
+      },
+      "type": "NodePort"
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "name": "policy-store"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "ldap",
+            "port": 389,
+            "targetPort": 10389
+          }
+        ],
+        "selector": {
+          "ca.com/sso": "policy-store"
+        }
+      }
+    }
+  ]
+}
