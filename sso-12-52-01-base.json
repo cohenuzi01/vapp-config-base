@@ -41,7 +41,7 @@
                     "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
                   }
                 ],
-                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:12.52.01.ga",
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
                 "name": "configuration",
                 "volumeMounts": [
                   {
@@ -121,7 +121,7 @@
                     "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
                   }
                 ],
-                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:12.52.01.ga",
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
                 "name": "configuration",
                 "volumeMounts": [
                   {
@@ -195,7 +195,7 @@
                     "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
                   }
                 ],
-                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:12.52.01.ga",
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
                 "name": "configuration",
                 "volumeMounts": [
                   {
@@ -281,7 +281,7 @@
                     "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
                   }
                 ],
-                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:12.52.01.ga",
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
                 "name": "configuration",
                 "volumeMounts": [
                   {
