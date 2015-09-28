@@ -1,0 +1,4 @@
+echo [*] Loading data
+mkdir $DXHOME/data
+dxloaddb -s sso-policy-store /solution/$CONFIG/ldif/sso-policy-store.ldif
+echo [*] Loaded data

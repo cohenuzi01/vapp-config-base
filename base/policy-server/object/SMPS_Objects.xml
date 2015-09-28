@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<!--Created by Liquid XML 2006 (www.liquid-technologies.com) for Computer Associates-->
+<!-- This is SIteMinder Agent/Host import file -->
+<XPS xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance">
+	<XPSVersion>0</XPSVersion>
+	<PolicyData IsDumpExport="false">
+
+
+		<References>
+			<ReferenceObject ReferenceId="Ref00001" ObjectClass="CA.SM::AgentType">
+				<Xid>CA.SM::AgentType@10-8d78bb96-ae15-11d1-9cdd-006008aac24b</Xid>
+				<Attribute Name="CA.SM::AgentType.Desc" Type="Comment">
+					<StringValue>SiteMinder Web Agent</StringValue>
+				</Attribute>
+				<Attribute Name="CA.SM::AgentType.Name" Type="Identity">
+					<StringValue>Web Agent</StringValue>
+				</Attribute>
+			</ReferenceObject>
+		</References>
+
+
+		<Object Class="CA.SM::Agent" Xid="CA.SM::Agent@01-00020fca-1f2a-1dd3-97ce-00017f00f054" CreatedDateTime="2011-12-01T17:08:43" ModifiedDateTime="2011-12-29T17:08:43" UpdatedBy="os:root" UpdateMethod="Import" ExportType="Add">
+			<Property Name="CA.SM::Agent.AgentTypeLink">
+				<LinkValue>
+					<XREF>Ref00001</XREF>
+				</LinkValue>
+			</Property>
+			<Property Name="CA.SM::Agent.Name">
+				<StringValue>agent</StringValue>
+			</Property>
+			<Property Name="CA.SM::Agent.RealmHintAttrId">
+				<NumberValue>0</NumberValue>
+			</Property>
+		</Object>
+
+
+		<Object Class="CA.SM::AgentConfig" Xid="CA.SM::AgentConfig@21-0007cc77-a8c0-1ebd-a40b-00017f00f054" CreatedDateTime="2011-12-01T17:08:45" ModifiedDateTime="2011-12-29T17:08:45" UpdatedBy="os:root" UpdateMethod="Import" ExportType="Add">
+			<Property Name="CA.SM::AgentConfig.Attributes">
+				<StringValue>#4xCompatMode=0=</StringValue>
+				<StringValue>#AcceptTPCookie=0=</StringValue>
+				<StringValue>#AgentNamesAreFQHostNames=0=no</StringValue>
+				<StringValue>#AgentWaitTime=0=5</StringValue>
+				<StringValue>#AutoAuthorizeOptions=0=</StringValue>
+				<StringValue>BadCssChars=0=%3C%2C%3E%2C%27%2C%2522%2C%29%2C%28</StringValue>
+				<StringValue>BadFormChars=0=%3C%2C%3E%2C%26%2C%2522</StringValue>
+				<StringValue>BadQueryChars=0=%3C%2C%3E%2C%27%2C%2522%2C%3B%2C%29%2C%28%2C.%2F%2C.%5C%2C%5C.</StringValue>
+				<StringValue>#ConformToRFC2047=0=yes</StringValue>
+				<StringValue>#CookiePath=0=no</StringValue>
+				<StringValue>#CookiePathScope=0=%2Froot</StringValue>
+				<StringValue>#CookieProvider=0=</StringValue>
+				<StringValue>#CookieValidationPeriod=0=no</StringValue>
+				<StringValue>#CssErrorfile=0=</StringValue>
+				<StringValue>#Custom401ErrorFile=0=no</StringValue>
+				<StringValue>#CustomIpHeader=0=no</StringValue>
+				<StringValue>#DefaultHostName=0=</StringValue>
+				<StringValue>#DeleteCerts=0=no</StringValue>
+				<StringValue>#DisableDNSLookups=0=</StringValue>
+				<StringValue>#DisallowUTF8NonCanonical=0=</StringValue>
+				<StringValue>#EnableAccounting=0=</StringValue>
+				<StringValue>#EnableFormCache=0=</StringValue>
+				<StringValue>#EnableNTChallengeResponse=0=</StringValue>
+				<StringValue>#EnableWebAgent=0=</StringValue>
+				<StringValue>#EncryptAgentName=0=yes</StringValue>
+				<StringValue>#EnforceRealmTimeouts=0=no</StringValue>
+				<StringValue>ExpireForProxy=0=yes</StringValue>
+				<StringValue>#ExpiredCookieURL=0=</StringValue>
+				<StringValue>#FCCForcelsProtected=0=</StringValue>
+				<StringValue>#ForceCookieDomain=0=no</StringValue>
+				<StringValue>#ForceFQHost=0=no</StringValue>
+				<StringValue>#ForceGetSessionData=0=</StringValue>
+				<StringValue>#FormCacheTimeOut=0=</StringValue>
+				<StringValue>#GetPortFromHeaders=0=no</StringValue>
+				<StringValue>#HostConfigFile=0=</StringValue>
+				<StringValue>#HttpServicePrincipal=0=</StringValue>
+				<StringValue>#HttpheaderEncodingSpec=0=</StringValue>
+				<StringValue>#HttpsPorts=0=no</StringValue>
+				<StringValue>#IdleTimeoutURL=0=</StringValue>
+				<StringValue>#IgnoreCPFornotprotected=0=no</StringValue>
+				<StringValue>#IgnoreHost=0=</StringValue>
+				<StringValue>#IgnoreUrl=0=</StringValue>
+				<StringValue>#IgnoreXMLSDK=0=</StringValue>
+				<StringValue>#KCCExt=0=</StringValue>
+				<StringValue>#LegacyCookieProvider=0=no</StringValue>
+				<StringValue>#LegacyEncoding=0=</StringValue>
+				<StringValue>#LegacyPostPreservationEncoding=0=</StringValue>
+				<StringValue>#LegacyTransferEncoding=0=</StringValue>
+				<StringValue>#LegalHostNameChars=0=</StringValue>
+				<StringValue>#LogFilesToKeep=0=</StringValue>
+				<StringValue>#LogLocalTime=0=yes</StringValue>
+				<StringValue>#LogOffURl=0=</StringValue>
+				<StringValue>#LowerCaseHTTP=0=yes</StringValue>
+				<StringValue>#LowerCaseProtocolSpecifier=0=</StringValue>
+				<StringValue>#MasterCookiePath=0=%2Froot</StringValue>
+				<StringValue>#MaxTimeoutURL=0=</StringValue>
+				<StringValue>#OverlookSessionForMethodUri=0=</StringValue>
+				<StringValue>#OverlookSessionForMethods=0=no</StringValue>
+				<StringValue>#OverlookSessionForUrls=0=no</StringValue>
+				<StringValue>#PostPreservationFile=0=</StringValue>
+				<StringValue>#PreservePostData=0=yes</StringValue>
+				<StringValue>PreserverHeaders=0=yes</StringValue>
+				<StringValue>#ProxyDefinition=0=no</StringValue>
+				<StringValue>ProxyHeadersAutoAuth=0=Cache-Control: no-cache, no-store</StringValue>
+				<StringValue>#ProxyHeaderAutoAuth10=0=</StringValue>
+				<StringValue>#ProxyHeaderDefaultTime=0=</StringValue>
+				<StringValue>ProxyHeadersProtected=0=Cache-Control: no-cache, no-store</StringValue>
+				<StringValue>#ProxyHeaderProtected10=0=</StringValue>
+				<StringValue>#ProxyHeaderTimeOutPercentage=0=</StringValue>
+				<StringValue>ProxyHeadersUnprotected=0=Cache-Control: public</StringValue>
+				<StringValue>#ProxyHeaderUnprotected10=0=</StringValue>
+				<StringValue>#RemoteUserVar=0=</StringValue>
+				<StringValue>#ReqCookieErrorFile=0=</StringValue>
+				<StringValue>#SSOTrustedZone=0=</StringValue>
+				<StringValue>#SSOZoneName=0=</StringValue>
+				<StringValue>#SaveCredsTimeout=0=720</StringValue>
+				<StringValue>#SecureApps=0=yes</StringValue>
+				<StringValue>SecureURLs=0=yes</StringValue>
+				<StringValue>#ServerErrorFile=0=</StringValue>
+				<StringValue>#ServerPath=0=</StringValue>
+				<StringValue>#SharedSecret=0=</StringValue>
+				<StringValue>#SmpsServicePrincipal=0=</StringValue>
+				<StringValue>#StoreSessioninServer=0=</StringValue>
+				<StringValue>#TraceDelimiter=0=</StringValue>
+				<StringValue>#TraceFilesToKeep=0=</StringValue>
+				<StringValue>#TraceFormat=0=</StringValue>
+				<StringValue>#TrackSessionDomain=0=</StringValue>
+				<StringValue>UseHTTPOnlyCookies=0=no</StringValue>
+				<StringValue>#UseSecureCPCookies=0=</StringValue>
+				<StringValue>#UseServerRequestIp=0=no</StringValue>
+				<StringValue>#UseSessionForAnonymous=0=</StringValue>
+				<StringValue>ValidTargetDomain=0=.ca.com%03.ca.local</StringValue>
+				<StringValue>AgentName=2=agent</StringValue>
+				<StringValue>AllowCacheHeaders=0=no</StringValue>
+				<StringValue>AllowLocalConfig=0=no</StringValue>
+				<StringValue>BadUrlChars=0=%2F%2F%2C.%2F%2C%2F.%2C%2F%2A%2C%2A.%2C~%2C%5C%2C%2500-%251f%2C%257f-%25ff</StringValue>
+				<StringValue>CCCExt=0=.ccc</StringValue>
+				<StringValue>CacheAnonymous=0=no</StringValue>
+				<StringValue>ConstructFullPwsvcURL=0=no</StringValue>
+				<StringValue>CookieDomain=0=</StringValue>
+				<StringValue>CookieDomainScope=0=0</StringValue>
+				<StringValue>CssChecking=0=yes</StringValue>
+				<StringValue>DecodeQueryData=0=no</StringValue>
+				<StringValue>DefaultAgentName=2=agent</StringValue>
+				<StringValue>Desc=0=</StringValue>
+				<StringValue>DisableAuthSrcVars=0=no</StringValue>
+				<StringValue>DisableDotDotRule=0=no</StringValue>
+				<StringValue>DisableSessionVars=0=no</StringValue>
+				<StringValue>DisableUserNameVars=0=no</StringValue>
+				<StringValue>EnableAuditing=0=no</StringValue>
+				<StringValue>EnableMonitoring=0=yes</StringValue>
+				<StringValue>EnforcePolicies=0=yes</StringValue>
+				<StringValue>FCCCompatMode=0=no</StringValue>
+				<StringValue>FCCExt=0=.fcc</StringValue>
+                <StringValue>HttpheaderEncodingSpec=2=UTF-8%2CRFC-2047</StringValue>
+				<StringValue>IgnoreExt=0=.class%2C.gif%2C.jpg%2C.jpeg%2C.png%2C.fcc%2C.scc%2C.sfcc%2C.ccc%2C.css%2C.ntc</StringValue>
+				<StringValue>IgnoreQueryData=0=no</StringValue>
+				<StringValue>LegacyVariables=0=yes</StringValue>
+				<StringValue>LogAppend=2=yes</StringValue>
+				<StringValue>LogFileName=2=%2Fopt%2FCA%2Fsecure-proxy%2Fproxy-engine%2Flogs%2Fsps.log</StringValue>
+				<StringValue>LogFileSize=0=100</StringValue>
+				<StringValue>Logfile=2=yes</StringValue>
+				<StringValue>LogoffUri=2=%2Fiam%2Fim%2Flogout.jsp%03%2Fgateway%2Fmanage%2Flogout.html%03%2Fproxyui%2Flogout.jsf</StringValue>
+				<StringValue>MaxResourceCacheSize=0=750</StringValue>
+				<StringValue>MaxSessionCacheSize=0=750</StringValue>
+				<StringValue>MaxUrlSize=0=4097</StringValue>
+				<StringValue>NTCExt=0=.ntc</StringValue>
+				<StringValue>Name=0=agentConfig</StringValue>
+				<StringValue>OverrideIgnoreExtFilter=0=</StringValue>
+				<StringValue>PSPollInterval=0=30</StringValue>
+				<StringValue>PersistentCookies=0=no</StringValue>
+				<StringValue>PersistentIPCheck=0=yes</StringValue>
+				<StringValue>ProxyAgent=0=no</StringValue>
+				<StringValue>ProxyTimeout=0=120</StringValue>
+				<StringValue>ProxyTrust=0=no</StringValue>
+				<StringValue>RequireCookies=0=yes</StringValue>
+				<StringValue>ResourceCacheTimeout=0=600</StringValue>
+				<StringValue>SCCExt=0=.scc</StringValue>
+				<StringValue>SFCCExt=0=.sfcc</StringValue>
+				<StringValue>SessionGracePeriod=0=30</StringValue>
+				<StringValue>SessionUpdatePeriod=0=60</StringValue>
+				<StringValue>SetRemoteUser=0=no</StringValue>
+				<StringValue>TargetAsRelativeURI=0=no</StringValue>
+				<StringValue>TraceAppend=0=no</StringValue>
+				<StringValue>TraceConfigFile=2=%2Fopt%2FCA%2Fsecure-proxy%2Fproxy-engine%2Fconf%2Fdefaultagent%2FSecureProxyTrace.conf</StringValue>
+				<StringValue>TraceFile=2=no</StringValue>
+				<StringValue>TraceFileName=2=%2Fopt%2FCA%2Fsecure-proxy%2Fproxy-engine%2Flogs%2Fsps_trace.log</StringValue>
+				<StringValue>TraceFileSize=0=100</StringValue>
+				<StringValue>TransientIDCookies=0=no</StringValue>
+				<StringValue>TransientIPCheck=0=no</StringValue>
+				<StringValue>UseAnonAccess=0=no</StringValue>
+				<StringValue>UseSecureCPCookies=0=no</StringValue>
+				<StringValue>UseSecureCookies=0=no</StringValue>
+			</Property>
+			<Property Name="CA.SM::AgentConfig.Desc">
+				<StringValue/>
+			</Property>
+			<Property Name="CA.SM::AgentConfig.Name">
+				<StringValue>agentConfig</StringValue>
+			</Property>
+		</Object>
+
+
+                <Object Class="CA.SM::HostConfig" Xid="CA.SM::HostConfig@21-eaf30a00-e8f9-11d5-ba50-0010a4911ff4" CreatedDateTime="2012-08-17T08:36:41" ModifiedDateTime="2012-08-17T08:36:41" UpdatedBy="XPSDictionary::Import" UpdateMethod="Internal" ExportType="Replace">
+                    <Property Name="CA.SM::HostConfig.EnableFailOver">
+                        <BooleanValue>true</BooleanValue>
+                </Property>
+                <Property Name="CA.SM::HostConfig.MaxSocketsPerPort">
+                        <NumberValue>20</NumberValue>
+                </Property>
+                <Property Name="CA.SM::HostConfig.MinSocketsPerPort">
+                        <NumberValue>2</NumberValue>
+                </Property>
+                <Property Name="CA.SM::HostConfig.Name">
+                        <StringValue>hostconfig</StringValue>
+                </Property>
+                <Property Name="CA.SM::HostConfig.NewSocketStep">
+                        <NumberValue>2</NumberValue>
+                </Property>
+                <Property Name="CA.SM::HostConfig.PolicyServer">
+                        <StringValue>policy-server,44441,44442,44443</StringValue>
+                </Property>
+                <Property Name="CA.SM::HostConfig.RequestTimeout">
+                        <NumberValue>60</NumberValue>
+                </Property>
+                </Object><!-- Xid="CA.SM::HostConfig@21-eaf30a00-e8f9-11d5-ba50-0010a4911ff4" -->
+
+
+	</PolicyData>
+</XPS>

@@ -1,0 +1,43 @@
+# schema
+source "../schema/sso-policy-store.dxg";
+
+# knowledge
+clear dsas;
+
+set dsa "sso-policy-store" =
+{
+    prefix        = <o sso>
+    dsa-name      = <o sso><ou Netegrity>
+    dsa-password  = "secret"
+    address       = tcp "0.0.0.0" port 10389
+    disp-psap     = DISP
+    snmp-port     = 10389
+    console-port  = 10390
+    dsa-flags     = no-service-while-recovering, multi-write
+};
+
+
+# ssl
+#source "../ssld/default.dxc";
+
+set ignore-name-bindings = true;
+
+# size limits
+set max-users = 1000;
+set max-op-size = 4000;
+set multi-write-queue = 20000;
+
+# time limits
+set max-bind-time = none;
+set bind-idle-time = 3600;
+set max-op-time = 600;
+
+set credits = 5;
+set max-local-ops = 1000;
+
+
+# grid configuration
+set dxgrid-db-location = "data";
+set dxgrid-db-size = 10;
+set cache-index = all-attributes;
+set lookup-cache = true;
