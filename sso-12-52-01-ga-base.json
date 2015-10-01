@@ -38,7 +38,7 @@
                   },
                   {
                     "name": "SOURCE",
-                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
+                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.ga.zip"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -118,7 +118,7 @@
                   },
                   {
                     "name": "SOURCE",
-                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
+                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.ga.zip"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -192,7 +192,7 @@
                   },
                   {
                     "name": "SOURCE",
-                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
+                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.ga.zip"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -278,7 +278,7 @@
                   },
                   {
                     "name": "SOURCE",
-                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
+                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.ga.zip"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
