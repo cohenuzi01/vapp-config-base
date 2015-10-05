@@ -80,6 +80,8 @@ $NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/fedpolicy-12.5.xml -npass
 
 $NETE_PS_ROOT/bin/XPSImport $OBJECT_FILE -npass
 
+$NETE_PS_ROOT/bin/XPSImport /solution/$CONFIG/object/proxyui_objects.xml -npass
+
 echo "[*] Finished import default objects"
 
 
