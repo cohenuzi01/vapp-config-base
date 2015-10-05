@@ -3,7 +3,7 @@
   "kind": "Template",
   "metadata": {
     "annotations": {
-      "description": "CA Single Sign-On 12.52.01.latest"
+      "description": "CA Single Sign-On 12.52.01.ga Base"
     },
     "creationTimestamp": null,
     "name": "sso-12-52-01-ga-base",
