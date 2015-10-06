@@ -45,7 +45,12 @@ adminui_registration() {
  j=0
  LOGFILE=${JBOSS_HOME}/bin/nohup.out
 
-	while [ -f "$LOGFILE" ] && [ "$j" -le "$TIME_OUT" ]; do
+	while [ -f "$LOGFILE" ]; do
+        if [ "$j" -gt "$TIME_OUT" ]; then
+            echo "Timeout reached waiting for jboss to start"
+            exit 1
+        fi
+        
 		/bin/grep "CA IAM FW Startup Sequence Complete" "$LOGFILE"
 		if [ $? -eq 0 ]; then
 			 echo "jboss started successfully"
