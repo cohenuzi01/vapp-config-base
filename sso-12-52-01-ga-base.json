@@ -528,12 +528,12 @@
   ],
   "parameters": [
     {
-      "description": "The exposed hostname that will route to the Access Gateway Admin UI service.",
+      "description": "Configure your environment (hosts file or DNS) so this hostname resolves to an IP Address of any machine in your cluster.  This hostname must end in '.ca.local'.",
       "name": "AG_ADMIN_EXTERNAL_HOSTNAME",
       "value": "access-gateway-admin.ca.local"
     },
     {
-      "description": "The URL of your configuration",
+      "description": "The URL of your configuration.  Change this URL to use a custom configuration.",
       "name": "SOLUTION_CONFIGURATION",
       "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.ga.zip"
     }
