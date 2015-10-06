@@ -51,10 +51,30 @@ $NETE_PS_ROOT/bin/smldapsetup reg -h$ldap_ip -p$ldap_port -d$ldap_userdn -w$ldap
 echo "[*] Finished smldapsetup"
 
 echo "[*] Starting set super user password"
+TIME_OUT=500
+i=0
 
-/opt/CA/tmp/smreg -su $su_password
+while true; do
+    if [ "$i" -gt "$TIME_OUT" ]; then
+        exit 1
+    fi
 
-echo "[*] Finished set super user password"
+    /opt/CA/tmp/smreg -su $su_password
+    if [ $? -eq 0 ]; then
+        echo "Finished set super user password."
+        retval=0
+        break
+    else
+        echo "Unable to set super user password...."
+        i=`expr $i + 10`
+        echo "Sleeping for 10 secs and re trying.........."
+        sleep 10
+    fi
+done
+
+#/opt/CA/tmp/smreg -su $su_password
+
+#echo "[*] Finished set super user password"
 
 echo "[*] Starting XPSDDinstall"
 # TODO: Do not import schema if it is already there
