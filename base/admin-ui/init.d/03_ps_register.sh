@@ -17,8 +17,13 @@ adminui_registration() {
 	TYPE="Content-Type: application/x-www-form-urlencoded"
 	ACCEPT="Accept: text/html"
 	
-	while [ "$i" -le "$TIME_OUT" ]; do
-		/usr/bin/curl -H "Host: admin-ui" -H "$ACCEPT" -H "$TYPE" -X POST "admin-ui/iam/siteminder/adminui" -d "username=$ps_user&password=$ps_password&address=$ps_host" | grep -q "Error"
+	while true; do
+        if [ "$i" -gt "$TIME_OUT" ]; then
+            echo "Timeout reached attempting to register admin ui"
+            exit 1
+        fi
+        
+		/usr/bin/curl -s -H "Host: admin-ui" -H "$ACCEPT" -H "$TYPE" -X POST "admin-ui/iam/siteminder/adminui" -d "username=$ps_user&password=$ps_password&address=$ps_host" | grep -q "Error"
 		if [ $? -eq 0 ]; then
 		  echo "unable to register adminui...."
 			i=`expr $i + 10`
@@ -40,7 +45,12 @@ adminui_registration() {
  j=0
  LOGFILE=${JBOSS_HOME}/bin/nohup.out
 
-	while [ -f "$LOGFILE" ] && [ "$j" -le "$TIME_OUT" ]; do
+	while [ -f "$LOGFILE" ]; do
+        if [ "$j" -gt "$TIME_OUT" ]; then
+            echo "Timeout reached waiting for jboss to start"
+            exit 1
+        fi
+        
 		/bin/grep "CA IAM FW Startup Sequence Complete" "$LOGFILE"
 		if [ $? -eq 0 ]; then
 			 echo "jboss started successfully"
