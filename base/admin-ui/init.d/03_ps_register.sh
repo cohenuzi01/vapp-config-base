@@ -18,7 +18,7 @@ adminui_registration() {
 	ACCEPT="Accept: text/html"
 	
 	while [ "$i" -le "$TIME_OUT" ]; do
-		/usr/bin/curl -H "Host: admin-ui" -H "$ACCEPT" -H "$TYPE" -X POST "admin-ui/iam/siteminder/adminui" -d "username=$ps_user&password=$ps_password&address=$ps_host" | grep -q "Error"
+		/usr/bin/curl -s -H "Host: admin-ui" -H "$ACCEPT" -H "$TYPE" -X POST "admin-ui/iam/siteminder/adminui" -d "username=$ps_user&password=$ps_password&address=$ps_host" | grep -q "Error"
 		if [ $? -eq 0 ]; then
 		  echo "unable to register adminui...."
 			i=`expr $i + 10`
