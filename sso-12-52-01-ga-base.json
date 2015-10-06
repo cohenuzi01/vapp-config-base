@@ -38,7 +38,7 @@
                   },
                   {
                     "name": "SOURCE",
-                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
+                    "value": "${SOLUTION_CONFIGURATION}"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -118,7 +118,7 @@
                   },
                   {
                     "name": "SOURCE",
-                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
+                    "value": "${SOLUTION_CONFIGURATION}"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -192,7 +192,7 @@
                   },
                   {
                     "name": "SOURCE",
-                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
+                    "value": "${SOLUTION_CONFIGURATION}"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -278,7 +278,7 @@
                   },
                   {
                     "name": "SOURCE",
-                    "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
+                    "value": "${SOLUTION_CONFIGURATION}"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -365,9 +365,9 @@
       "kind": "Service",
       "metadata": {
         "annotations": {
-          "ca.com/cluster-public-hostname": "access-gateway-admin.ca.local",
+          "ca.com/cluster-public-hostname": "${AG_ADMIN_EXTERNAL_HOSTNAME}",
           "ca.com/cluster-public-hostname-backend": "access-gateway-admin.ca.local",
-          "ca.com/cluster-public-url": "/proxyui",
+          "ca.com/cluster-public-url": "http://${AG_ADMIN_EXTERNAL_HOSTNAME}/proxyui",
           "ca.com/cluster-public-urlpath": "/proxyui/",
           "ca.com/cluster-public-urlpath-backend": "/proxyui/",
           "ca.com/cluster-public-urltext": "Access Gateway Admin",
@@ -524,6 +524,18 @@
           "ca.com/sso": "policy-store"
         }
       }
+    }
+  ],
+  "parameters": [
+    {
+      "description": "Configure your environment (hosts file or DNS) so this hostname resolves to an IP Address of any machine in your cluster.  This hostname must end in '.ca.local'.",
+      "name": "AG_ADMIN_EXTERNAL_HOSTNAME",
+      "value": "access-gateway-admin.ca.local"
+    },
+    {
+      "description": "The URL of your configuration.  Change this URL to use a custom configuration.",
+      "name": "SOLUTION_CONFIGURATION",
+      "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.ga.zip"
     }
   ]
 }
