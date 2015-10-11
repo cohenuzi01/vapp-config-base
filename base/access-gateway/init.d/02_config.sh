@@ -22,6 +22,7 @@ ps_host=`/opt/util/parser.sh PS_HOST $ENV_PROP_FILE`
 admin_reg_name=`/opt/util/parser.sh ADMIN_REG_NAME $ENV_PROP_FILE`
 ps_hco_name=`/opt/util/parser.sh HOST_CONFIG_OBJ $ENV_PROP_FILE`
 trusted_host_name=`/opt/util/parser.sh TRUSTED_HOST_NAME $ENV_PROP_FILE`
+enable_fed_gateway=`/opt/util/parser.sh ENABLE_FED_GATEWAY $ENV_PROP_FILE`
 
 
 #decrypted using ../password-util/passwordDecode.sh
@@ -121,6 +122,11 @@ sed -i 's|$$RULESFILE|'"$sps_home/proxy-engine/conf/proxyrules.xml"'|g' $sps_hom
 sed -i 's|$$POLICY_SERVER_VERSION|12.5|g' $sps_home/proxy-engine/conf/server.conf
 sed -i 's|$$SMINITFILE|'"$sps_home/proxy-engine/conf/defaultagent/WebAgent.conf"'|g' $sps_home/proxy-engine/conf/server.conf
 sed -i 's|$$HOSTNAME|'"$hostname"'|g' $sps_home/proxy-engine/conf/server.conf
+
+if [[ "$enable_fed_gateway" = "yes" || "$enable_fed_gateway" = "YES" ]] ; then
+        sed -i 's|enablefederationgateway="no"|enablefederationgateway="yes"|g' $sps_home/proxy-engine/conf/server.conf
+fi
+
 
 #changes to apachectl
 sed -i 's|/vobs/3ptysrc/apache/httpd-unix/Release/Apache2|/opt/CA/secure-proxy/httpd|g' $sps_home/httpd/bin/apachectl
