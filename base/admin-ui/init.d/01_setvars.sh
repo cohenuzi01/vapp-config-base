@@ -34,3 +34,7 @@ sed -i "s|{JBOSS_HOME}|${JBOSS_HOME}|g" ${JBOSS_HOME}/server/default/deploy/iam_
 sed -i "s|{JBOSS_HOME}|${JBOSS_HOME}|g" ${JBOSS_HOME}/server/default/deploy/iam_siteminder_objectstore-ds.xml
 
 echo "[*] Set configuration variables: complete"
+
+#Temporary fix for entropy issue. Will be removed/modified once alternative approach is confirmed.
+mv /dev/random /dev/origrandom
+ln -s /dev/urandom /dev/random
