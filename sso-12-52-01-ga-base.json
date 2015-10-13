@@ -212,6 +212,7 @@
                   }
                 ],
                 "image": "store.vapp-security.solutions/ssignon/policy-server:12.52.01.ga",
+                "imagePullPolicy": "Always",
                 "name": "policy-server",
                 "ports": [
                   {
