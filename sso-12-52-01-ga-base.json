@@ -58,6 +58,7 @@
                   }
                 ],
                 "image": "store.vapp-security.solutions/ssignon/access-gateway:12.52.01.ga",
+                "imagePullPolicy": "Always",
                 "name": "access-gateway",
                 "ports": [
                   {
@@ -138,6 +139,7 @@
                   }
                 ],
                 "image": "store.vapp-security.solutions/ssignon/admin-ui:12.52.01.ga",
+                "imagePullPolicy": "Always",
                 "name": "admin-ui",
                 "ports": [
                   {
