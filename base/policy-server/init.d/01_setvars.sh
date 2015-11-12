@@ -27,7 +27,6 @@ sed -i "s|nete_ps_root|$ps_home|g" /opt/CA/siteminder/smmon
 sed -i "s|sm_home|$ps_home|g" /opt/CA/siteminder/config/JVMOptions.txt
 sed -i "s|nete_ps_root|$ps_home|g" /opt/CA/siteminder/db/*.ini
 sed -i "s|sm_home|$ps_home|g" /opt/CA/siteminder/config/properties/smkeydatabase.properties
-sed -i "s|<ARCOT_HOME>|/opt/CA/aas|g" /opt/CA/aas/sbin/arrfenv
 
 ln -s $JAVA_HOME/lib/i386/server/libjvm.so /usr/lib/libjvm.so
 

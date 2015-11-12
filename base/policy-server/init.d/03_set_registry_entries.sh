@@ -50,7 +50,6 @@ $NETE_PS_ROOT/bin/smldapsetup reg -h$ldap_ip -p$ldap_port -d$ldap_userdn -w$ldap
 
 echo "[*] Finished smldapsetup"
 
-echo "[*] Starting set super user password"
 TIME_OUT=500
 i=0
 
@@ -59,50 +58,58 @@ while true; do
         exit 1
     fi
 
-    /opt/CA/tmp/smreg -su $su_password
-    if [ $? -eq 0 ]; then
-        echo "Finished set super user password."
+    $NETE_PS_ROOT/bin/smldapsetup status | grep -q "Error"
+    if [ $? -ne 0 ]; then
+        echo "Policy store is ready..."
         retval=0
         break
     else
-        echo "Unable to set super user password...."
+        echo "Unable to contact policy store...."
         i=`expr $i + 10`
         echo "Sleeping for 10 secs and re trying.........."
         sleep 10
     fi
 done
 
-#/opt/CA/tmp/smreg -su $su_password
+echo "[*] Starting set super user password"
+/opt/CA/tmp/smreg -su $su_password
 
-#echo "[*] Finished set super user password"
+echo "[*] Finished set super user password"
 
-echo "[*] Starting XPSDDinstall"
-# TODO: Do not import schema if it is already there
+echo CA.SM::AuthScheme> replay.cmd
 
-$NETE_PS_ROOT/bin/XPSDDInstall $NETE_PS_ROOT/xps/dd/SmMaster.xdd
+echo A>> replay.cmd
 
-echo "[*] FinishedXPSDDInstall"
+XPSExplorer < replay.cmd 2>/dev/null | grep SupportsValidateIdentity
+    if [ $? -ne 0 ]; then
+		echo "[*] Starting XPSDDinstall"
+		# TODO: Do not import schema if it is already there
+
+		$NETE_PS_ROOT/bin/XPSDDInstall $NETE_PS_ROOT/xps/dd/SmMaster.xdd
+
+		echo "[*] FinishedXPSDDInstall"
+
+		echo "[*] Starting import default objects"
+		# TODO: Do not import data if it is already there
+
+		$NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/smpolicy.xml -npass
+
+		$NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/ampolicy.xml -npass
+
+		$NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/fedpolicy-12.5.xml -npass
+
+		$NETE_PS_ROOT/bin/XPSImport $OBJECT_FILE -npass
+
+		$NETE_PS_ROOT/bin/XPSImport /solution/$CONFIG/object/proxyui_objects.xml -npass
+
+		echo "[*] Finished import default objects"
+	fi
+
 
 echo "[*] Starting XPS Reg client"
 
 $NETE_PS_ROOT/bin/XPSRegClient siteminder:$su_password -adminui-setup -t 1440
 
 echo "[*] Finished XPS Reg client..."
-
-echo "[*] Starting import default objects"
-# TODO: Do not import data if it is already there
-
-$NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/smpolicy.xml -npass
-
-$NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/ampolicy.xml -npass
-
-$NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/fedpolicy-12.5.xml -npass
-
-$NETE_PS_ROOT/bin/XPSImport $OBJECT_FILE -npass
-
-$NETE_PS_ROOT/bin/XPSImport /solution/$CONFIG/object/proxyui_objects.xml -npass
-
-echo "[*] Finished import default objects"
-
 
 echo "[*] Create default objects: complete"
