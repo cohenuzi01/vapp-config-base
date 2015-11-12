@@ -3,13 +3,20 @@
   "kind": "Template",
   "metadata": {
     "annotations": {
-      "description": "CA Single Sign-On 12.52.01.ga Base"
+      "description": "CA Single Sign-On 12.52.01.ga"
     },
     "creationTimestamp": null,
-    "name": "sso-12-52-01-ga-base",
-    "namespace": "sso-12-52-01-ga-base"
+    "name": "sso-12-52-01-ga",
+    "namespace": "sso-12-52-01-ga"
   },
   "objects": [
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "name": "${SOLUTION_NAMESPACE}"
+      }
+    },
     {
       "apiVersion": "v1",
       "kind": "ReplicationController",
@@ -32,6 +39,10 @@
             "containers": [
               {
                 "env": [
+                  {
+                    "name": "GITHUB_TOKEN",
+                    "value": "${OAUTH_TOKEN}"
+                  },
                   {
                     "name": "DESTINATION",
                     "value": "/solution"
@@ -114,6 +125,10 @@
               {
                 "env": [
                   {
+                    "name": "GITHUB_TOKEN",
+                    "value": "${OAUTH_TOKEN}"
+                  },
+                  {
                     "name": "DESTINATION",
                     "value": "/solution"
                   },
@@ -188,6 +203,10 @@
             "containers": [
               {
                 "env": [
+                  {
+                    "name": "GITHUB_TOKEN",
+                    "value": "${OAUTH_TOKEN}"
+                  },
                   {
                     "name": "DESTINATION",
                     "value": "/solution"
@@ -275,6 +294,10 @@
             "containers": [
               {
                 "env": [
+                  {
+                    "name": "GITHUB_TOKEN",
+                    "value": "${OAUTH_TOKEN}"
+                  },
                   {
                     "name": "DESTINATION",
                     "value": "/solution"
@@ -531,14 +554,19 @@
   ],
   "parameters": [
     {
-      "description": "Configure your environment (hosts file or DNS) so this hostname resolves to an IP Address of any machine in your cluster.  This hostname must end in '.ca.local'.",
-      "name": "AG_ADMIN_EXTERNAL_HOSTNAME",
-      "value": "access-gateway-admin.ca.local"
+      "description": "The OAuth token is used to access your configuration in, say, Github. Change this token to a valid token to your configuration server if it requires OAuth authentication to access your custom configuration.",
+      "name": "OAUTH_TOKEN",
+      "value": ""
     },
     {
       "description": "The URL of your configuration.  Change this URL to use a custom configuration.",
       "name": "SOLUTION_CONFIGURATION",
       "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.ga.zip"
+    },
+    {
+      "description": "Configure your environment (hosts file or DNS) so this hostname resolves to an IP Address of any machine in your cluster.  This hostname must end in '.ca.local'.",
+      "name": "AG_ADMIN_EXTERNAL_HOSTNAME",
+      "value": "access-gateway-admin.ca.local"
     }
   ]
 }
