@@ -1,2 +1,13 @@
-# vapp-config-base
-CA SSO configuration
+# Solution Configuration
+
+Configuration for the base CA SSO including configuration the Policy Server, Admin UI and Access Gateway
+
+The SSO base solution defines replication controllers, and services for the following components:  access-gateway, admin-ui, policy-server-master, policy-server (worker), and policy-store.
+Each Replication controller is responsible for one Pod, making sure the right number of replicas of that pod are running at all time. Each Pod has two containers running inside of it: Its component (as indicated by its name), as well as a configuration container called a “sidecar”.
+Every time a pod starts it starts all of its containers, in our case it means the container running the pod’s main component (policy-server, policy-store, etc.), as well as a sidecar container. The sidecar container is in-charge of downloading the solution’s configuration zip file from the url that was specified when the solution was deployed, extracting it, and making it available to the other container in its pod in the form of a shared Kubernetes Volume ( of type "emptyDir"). These operations happen every time the sidecar container starts up, thus allowing for configuration to be refreshed every time we start/restart the pod. 
+
+The solution exposes 2 administrative UIs. SSO Administrative UI (default credentials SiteMinder/CAdemo123), and the Access Gateway Admin (default credentials Administrator/CAdemo123). Note that in order to authenticate to the Access Gateway Admin (SPS Admin UI), it is required to use a specific host name as specified when the solution was deployed (by default it is “access-gateway-admin.ca.local”). Make sure to add this host name to your DNS server or your local etc/hosts file and use it when accessing the Access Gateway Admin.
+
+There are two types of replication controller for policy server, one for each policy server role (master and worker). Both servers use the same image. The difference is in their initialization scripts, The role of the master policy server is to initialize and configure the policy store, take care of the generation of agent keys (Agent Key roll-over), as well as be the server that the AdminUI and SPS Admin UI communicate with to perform administrative updates to the policy store. The policy-server-master Service will direct communication only to the master policy-server instance. There should be only one policy-server-master. The policy-server service points to all policy servers, including the master. The number of replicas of worker policy servers can be increased as needed to handle load. This is done via its replication controller (named policy-server). From a console, use the following command to change the number of running replicas of the policy server (x represents the desired number of replicas): 
+kubectl scale rc policy-server --replicas=x
+
