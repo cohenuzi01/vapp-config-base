@@ -40,16 +40,16 @@
               {
                 "env": [
                   {
+                    "name": "SOURCE",
+                    "value": "${SOLUTION_CONFIGURATION}"
+                  },
+                  {
                     "name": "GITHUB_TOKEN",
                     "value": "${OAUTH_TOKEN}"
                   },
                   {
                     "name": "DESTINATION",
                     "value": "/solution"
-                  },
-                  {
-                    "name": "SOURCE",
-                    "value": "${SOLUTION_CONFIGURATION}"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -69,7 +69,6 @@
                   }
                 ],
                 "image": "store.vapp-security.solutions/ssignon/access-gateway:12.52.01.ga",
-                "imagePullPolicy": "Always",
                 "name": "access-gateway",
                 "ports": [
                   {
@@ -125,16 +124,16 @@
               {
                 "env": [
                   {
+                    "name": "SOURCE",
+                    "value": "${SOLUTION_CONFIGURATION}"
+                  },
+                  {
                     "name": "GITHUB_TOKEN",
                     "value": "${OAUTH_TOKEN}"
                   },
                   {
                     "name": "DESTINATION",
                     "value": "/solution"
-                  },
-                  {
-                    "name": "SOURCE",
-                    "value": "${SOLUTION_CONFIGURATION}"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -154,7 +153,6 @@
                   }
                 ],
                 "image": "store.vapp-security.solutions/ssignon/admin-ui:12.52.01.ga",
-                "imagePullPolicy": "Always",
                 "name": "admin-ui",
                 "ports": [
                   {
@@ -185,24 +183,30 @@
       "apiVersion": "v1",
       "kind": "ReplicationController",
       "metadata": {
-        "name": "policy-server"
+        "name": "policy-server-master"
       },
       "spec": {
         "replicas": 1,
         "selector": {
-          "ca.com/sso": "policy-server"
+              "ca.com/sso": "policy-server",
+              "ca.com/sso-server-role": "master" 
         },
         "template": {
           "metadata": {
             "labels": {
-              "ca.com/sso": "policy-server"
+              "ca.com/sso": "policy-server",
+              "ca.com/sso-server-role": "master" 
             },
-            "name": "policy-server"
+            "name": "policy-server-master"
           },
           "spec": {
             "containers": [
               {
                 "env": [
+                  {
+                    "name": "SOURCE",
+                    "value": "${SOLUTION_CONFIGURATION}"
+                  },
                   {
                     "name": "GITHUB_TOKEN",
                     "value": "${OAUTH_TOKEN}"
@@ -210,10 +214,6 @@
                   {
                     "name": "DESTINATION",
                     "value": "/solution"
-                  },
-                  {
-                    "name": "SOURCE",
-                    "value": "${SOLUTION_CONFIGURATION}"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -230,10 +230,109 @@
                   {
                     "name": "CONFIG",
                     "value": "base/policy-server"
+                  },
+                  {
+                    "name": "ROLE",
+                    "value": "master"
                   }
                 ],
                 "image": "store.vapp-security.solutions/ssignon/policy-server:12.52.01.ga",
-                "imagePullPolicy": "Always",
+                "name": "policy-server",
+                "ports": [
+                  {
+                    "containerPort": 44441
+                  },
+                  {
+                    "containerPort": 44442
+                  },
+                  {
+                    "containerPort": 44443
+                  }
+                ],
+                "readinessProbe": {
+                  "tcpSocket": {
+                    "port": 44443
+                  },
+                  "initialDelaySeconds": 20
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "volumes": [
+              {
+                "name": "configuration",
+                "emptyDir": {}
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ReplicationController",
+      "metadata": {
+        "name": "policy-server"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "ca.com/sso": "policy-server",
+          "ca.com/sso-server-role": "worker"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "ca.com/sso": "policy-server",
+              "ca.com/sso-server-role": "worker"
+            },
+            "name": "policy-server"
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "SOURCE",
+                    "value": "${SOLUTION_CONFIGURATION}"
+                  },
+                  {
+                    "name": "GITHUB_TOKEN",
+                    "value": "${OAUTH_TOKEN}"
+                  },
+                  {
+                    "name": "DESTINATION",
+                    "value": "/solution"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
+                "name": "configuration",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/solution",
+                    "name": "configuration"
+                  }
+                ]
+              },
+              {
+                "env": [
+                  {
+                    "name": "CONFIG",
+                    "value": "base/policy-server"
+                  },
+                  {
+                    "name": "ROLE",
+                    "value": "worker"
+                  }
+                ],
+                "image": "store.vapp-security.solutions/ssignon/policy-server:12.52.01.ga",
                 "name": "policy-server",
                 "ports": [
                   {
@@ -295,16 +394,16 @@
               {
                 "env": [
                   {
+                    "name": "SOURCE",
+                    "value": "${SOLUTION_CONFIGURATION}"
+                  },
+                  {
                     "name": "GITHUB_TOKEN",
                     "value": "${OAUTH_TOKEN}"
                   },
                   {
                     "name": "DESTINATION",
                     "value": "/solution"
-                  },
-                  {
-                    "name": "SOURCE",
-                    "value": "${SOLUTION_CONFIGURATION}"
                   }
                 ],
                 "image": "store.vapp-security.solutions/vapp/sidecar-configsvc:latest",
@@ -506,6 +605,39 @@
         "labels": {
           "ca.com/cluster-public-service": "tcp"
         },
+        "name": "policy-server-master"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "accnt",
+            "port": 44441,
+            "targetPort": 44441
+          },
+          {
+            "name": "authn",
+            "port": 44442,
+            "targetPort": 44442
+          },
+          {
+            "name": "az",
+            "port": 44443,
+            "targetPort": 44443
+          }
+        ],
+        "selector": {
+          "ca.com/sso": "policy-server",
+          "ca.com/sso-server-role": "master"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "labels": {
+          "ca.com/cluster-public-service": "tcp"
+        },
         "name": "policy-server"
       },
       "spec": {
@@ -528,9 +660,9 @@
         ],
         "selector": {
           "ca.com/sso": "policy-server"
-        }
-      },
-      "type": "NodePort"
+        },
+        "type": "NodePort"
+      }
     },
     {
       "apiVersion": "v1",

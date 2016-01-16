@@ -90,3 +90,7 @@ jar xvf $sps_home/Tomcat/webapps/aaloginservice.war
 cd $sps_home/Tomcat/webapps/proxyui
 jar xvf $sps_home/Tomcat/webapps/proxyui/proxyui.war
 
+
+#Temporary fix for entropy issue. Will be removed/modified once alternative approach is confirmed.
+mv /dev/random /dev/origrandom
+ln -s /dev/urandom /dev/random
