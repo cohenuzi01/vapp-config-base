@@ -693,7 +693,7 @@
     {
       "description": "The URL of your configuration.  Change this URL to use a custom configuration.",
       "name": "SOLUTION_CONFIGURATION",
-      "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.ga.zip"
+      "value": "https://github.com/ca-sso/vapp-config-base/archive/12.52.01.zip"
     },
     {
       "description": "Configure your environment (hosts file or DNS) so this hostname resolves to an IP Address of any machine in your cluster.  This hostname must end in '.ca.local'.",
