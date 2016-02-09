@@ -189,5 +189,8 @@ echo "[*][$(date +"%T")] - Running smreghost..."
 register_trusted_host
 cp $sm_host_file  $ARCOT_HOME/conf/SmHostFlow.conf
 
+#Temporary: wait for the replication to carry the newly create trusted host to the other worker policy serevers.
+sleep 30
+
 echo "[*][$(date +"%T")] - Starting Secure Proxy Server service ..."
 $sps_home/proxy-engine/sps-ctl start

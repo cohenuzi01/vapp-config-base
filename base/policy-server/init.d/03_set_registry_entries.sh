@@ -8,7 +8,7 @@
 POLICY_STORE_VERSION="r12.52 sp1"
 POLICY_STORE_VERIFICATION_ATTRIBUTE=CA.SM::AuthScheme.SupportsValidateIdentity
 ENV_PROP_FILE=/solution/$CONFIG/data/environment.properties
-OBJECT_FILE=/solution/$CONFIG/object/SMPS_Objects.xml
+OBJECT_FILES_FOLDER=/solution/$CONFIG/object
 
 STORE_AVAILABILITY_TIME_OUT=500
 STORE_INITIALIZATION_TIME_OUT=600
@@ -79,8 +79,14 @@ initialize_policy_store()
     $NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/smpolicy.xml -npass
     $NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/ampolicy.xml -npass
     $NETE_PS_ROOT/bin/XPSImport $NETE_PS_ROOT/db/fedpolicy-12.5.xml -npass
-    $NETE_PS_ROOT/bin/XPSImport $OBJECT_FILE -npass
-    $NETE_PS_ROOT/bin/XPSImport /solution/$CONFIG/object/proxyui_objects.xml -npass
+
+#   Will xps import all the xml files in the $OBJECT_FILES_FOLDER.
+#   These include SMPS_Objects.xml and proxyui_objects.xml that create
+#   objects that are required for the Secure Proxy deployment as well as any other customer specific file
+    for filename in $OBJECT_FILES_FOLDER/*.xml; do
+        echo Using XPSImport to import "$filename"...
+        $NETE_PS_ROOT/bin/XPSImport "$filename"  -npass -fo  
+    done
 
     echo "[*][$(date +"%T")] - Finished import default objects"
 
@@ -155,7 +161,7 @@ if [ "$ROLE" == "master" ]; then
     #Checking whether the scheme is of the right version by checking the existence of a certain attribute
     echo r> replay.cmd
     echo $POLICY_STORE_VERIFICATION_ATTRIBUTE>> replay.cmd
-    $NETE_PS_ROOT/bin/XPSDictionary <replay.cmd 2>/dev/null | grep "matched"
+    $NETE_PS_ROOT/bin/XPSDictionary <replay.cmd 2>/dev/null | grep "Matches Attribute"
     if [ $? -ne 0 ]; then
         echo "[*][$(date +"%T")] - Policy store is not initialized or does not run an updated schema."
         initialize_policy_store
